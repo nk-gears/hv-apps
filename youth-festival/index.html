@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Youth for Change - Your Problem Our Solutions | Festival to Empower Youths
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="apple-touch-icon" href="icon-192x192.png" />
+  </head>
+  <style>
+    #waveContainer {
+    display: flex;
+    gap: 8px;
+    height: 30px;
+    overflow: hidden;
+  }
+
+  .wave {
+    width: 6px;
+    height: 100%;
+    background-color: #3498db;
+    animation: wave 1.2s infinite ease-in-out;
+  }
+
+  .wave:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .wave:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  .wave:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+
+  .wave:nth-child(5) {
+    animation-delay: 0.8s;
+  }
+
+  @keyframes wave {
+    0%,
+    100% {
+      transform: scaleY(0.3);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+  </style>
+
+  <body
+    class= "relative min-h-screen flex flex-col "
+  >
+
+    <main class="text-center p-5">
+        <header>
+            <img class="h-auto  rounded-lg" src="./prob-sol-logo.png" />
+          </header>
+          <header class="text-center mb-8 mt-4">
+            <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-lg">
+              Youth for Change
+            </h1>
+            <p class="text-lg md:text-2xl mt-2 font-semibold">
+              Click the Number to hear the Solution
+            </p>
+          </header>
+
+          
+      <div id="grid" class="max-w-3xl grid grid-cols-3 m-2 mb-40 h-screen"></div>
+      <div
+        id="overlay"
+        class="fixed inset-0 mx-auto bg-white bg-opacity-50 flex items-center justify-center hidden"
+      >
+        <div class="bg-white p-6 rounded-lg shadow-xl">
+          <h2 id="audioFilename" class="text-xl font-bold mb-4"></h2>
+          <div id="waveContainer" class="flex justify-center items-center mb-4">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+          </div>
+          <div class="flex space-x-4">
+            <button
+              id="playBtn"
+              class="bg-blue-500 text-white px-4 py-2 rounded hidden"
+            >
+              Play
+            </button>
+            <button
+              id="stopBtn"
+              class="bg-red-500 text-white px-4 py-2 rounded hidden"
+            >
+              Stop
+            </button>
+          </div>
+          <button
+            id="closeOverlay"
+            class="mt-4 text-gray-600 hover:text-gray-800"
+          >
+            Close
+          </button>
+        </div>
+      
+      </div>
+
+     
+
+      <!-- <p class="text-lg md:text-xl font-medium mb-6">
+            Welcome to the Youth for Change festival! Join us for an inspiring event filled with opportunities, learning, and empowerment for young minds.
+        </p>
+      
+        <a href="#explore" class="px-6 py-3 bg-white text-blue-600 font-bold rounded-lg shadow-md hover:bg-gray-200">
+            Explore More
+        </a> -->
+    </main>
+
+    <footer
+    class="text-center mb-8 mt-10 text-sm" 
+  >
+    © 2024 <a target="_blank" class="text-blue-600" href='https://brahmakumaris.com'>Brahma Kumaris</a> | Youth Festival - Youth for Change. All Rights Reserved.
+    <span> | <a target="_blank" class="text-blue-700" href='https://forms.gle/PiihUvvJ9JvQ3JYT8'> Feedback</a></span>
+  </footer>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("service-worker.js")
+          .then((registration) => {
+            console.log(
+              "Service Worker registered with scope:",
+              registration.scope
+            );
+          })
+          .catch((error) => {
+            console.log("Service Worker registration failed:", error);
+          });
+      }
+    </script>
+
+    <script>
+      const assets=[
+    "01 Manakulappam.mp3",
+    "02 Mana Bhayam.mp3",
+    "03 KOBAM.mp3",
+    "04 TENSION.mp3",
+    "05 Athirupthi.mp3",
+    "06 THOOKAMINMY.mp3",
+    "07 AKKARAINMY.mp3",
+    "08 Mana Kalaippu.mp3",
+    "09 KAVALAI.mp3",
+    "10 Mana pathattam.mp3",
+    "11 Thanimai.mp3",
+    "12 Mana Sumai.mp3",
+    "13 Mana Alaichal.mp3",
+    "14 VERUMY.mp3",
+    "15 Kadanthakala sumai.mp3",
+    "16 Iyalamai.mp3",
+    "17 BHAYAM.mp3",
+    "18 Theeya palakka valakkangal.mp3",
+    "19 Pathukaapuinmai.mp3",
+    "20 Gaurava pirachchanai.mp3",
+    "21 Panapirachchanai.mp3",
+    "22 Thalaimurai idaiveli.mp3",
+    "23 AROKIYAKURAIVU.mp3",
+    "24 SANTHEHAM.mp3",
+    "25 Eathirkalapirachchanai.mp3",
+    "26 SAARNTHIRUPPATHU.mp3",
+    "27 Uravu virisal.mp3",
+    "28 AVAMANAM.mp3",
+    "29 Vilaivasi uyarvu.mp3",
+    "30 Velaiillathindattam.mp3",
+    "31 Valangalin kuraivu.mp3",
+    "32 Nilaiilla arasiyal.mp3",
+    "33 Aelmai.mp3",
+    "34 Nambikkaiyinmai.mp3",
+    "35.Kalviyinmai.mp3",
+    "36 Naveenamayamakuthal.mp3",
+    "37 Inakkaminmai.mp3",
+    "38.Tholilalar pirachchanai.mp3",
+    "39 Muthaleetu sumai.mp3",
+    "40 PERASAI.mp3",
+    "41 Nastam.mp3",
+    "42 Thalaivali.mp3",
+    "43 Alcer.mp3",
+    "44 Rathaalutham.mp3",
+    "45 Narambuthalarchi.mp3",
+    "46 Sakkarai noi.mp3",
+    "47 udal melivu.mp3",
+    "48 Puttru noi.mp3",
+    "49 Udal paruman.mp3",
+    "50 Iruthaya noi.mp3",
+    "51 Aids.mp3",
+    "52 PAARAPATCHAM.mp3",
+    "53 AVAMANAM.mp3",
+    "54 Pakai.mp3",
+    "55 GAVANAKURAIVU.mp3",
+    "56 Aathiram.mp3",
+    "57 Agankaaram.mp3",
+    "58 Pattru.mp3",
+    "59 Theeya viruppam.mp3",
+    "60 Aarvakuraivu.mp3",
+    "61 PIDIVATHAM.mp3",
+    "62 PORUMY INMY.mp3",
+    "63 POIPESUTHAL.mp3",
+    "64 KOOCHASUBHAVAM.mp3",
+    "65 THALVUMANAPANMAI.mp3",
+    "66 Uyarvu manapanmai.mp3",
+    "67 Kulanthigal.mp3",
+    "68 Thirunangaigal.mp3",
+    "69 BRAHMAKUMARIS.mp3",
+    "70 Dhyana Varrnanai.mp3",
+    "71 MEDITATION.mp3"
+    ];
+
+    const mapping={
+  "1": 1,
+  "2": 3,
+  "3": 4,
+  "4": 6,
+  "5": 11,
+  "6": 17,
+  "7": 18,
+  "8": 19,
+  "9": 22,
+  "10": 26,
+  "11": 28,
+  "12": 30,
+  "13": 33,
+  "14": 34,
+  "15": 40,
+  "16": 49,
+  "17": 54,
+  "18": 55,
+  "19": 57,
+  "20": 58,
+  "21": 61,
+  "22": 62,
+  "23": 63,
+  "24": 64,
+  "25": 65
+};
+
+      const assetNames=[
+    "மனக்குழப்பம்",
+    "கோபம்",
+    "டென்சன்",
+    "தூக்கமின்மை ",
+    "தனிமை",
+    "எதிர்கால பயம் / சுமை",
+    "தீய பழக்க வழக்கங்கள்",
+    "பாதுகாப்பின்மை",
+    "தலைமுறை இடைவெளி",
+    "சார்ந்திருத்தல் (அடிமை)",
+    "அவமானப் பிரச்சனைகள்",
+    "வேலையில்லா திண்டாட்டம்",
+    "ஏழ்மை",
+    "நம்பிக்கையின்மை",
+    "பேராசை",
+    "உடல் பருமன்",
+    "விரோதம் மற்றும் பகைமை",
+    "கவனக்குறைவு",
+    "அகங்காரம்",
+    "பற்று",
+    "பிடிவாதம்",
+    "பொறுமையின்மை",
+    "பொய் பேசும் பழக்கம்",
+    "கூச்சம்",
+    "தாழ்வு மனப்பான்மை"
+]
+      let currentAudioIndex = 0;
+      let currentAudio = null;
+      let audioFilename = "audio.mp3";
+
+      function getRandomColor() {
+        return (
+          "#" +
+          Math.floor(Math.random() * 16777215)
+            .toString(16)
+            .padStart(6, "0")
+        );
+      }
+      const ctr = 0;
+
+      function createSquare(boxNum) {
+        const square = document.createElement("div");
+        square.className =
+          "shadow-lg select-none rounded-lg hover:shadow-md  m-1 flex items-center justify-center h-screen w-[100px] h-[100px] cursor-pointer align-center text-center";
+        square.style.backgroundColor = getRandomColor();
+        // square.addEventListener("click", () => {
+        //   showOverlay();
+        //   playAudio(currentAudioIndex);
+        // });
+        square.innerHTML = `<div class="text-center text-3xl">
+   ${boxNum}
+  </div>`;
+        square.addEventListener("click", () => {
+          currentAudioIndex = boxNum;
+          playAudio(boxNum);
+        });
+        return square;
+      }
+
+      function playAudio(boxNum) {
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+        }
+
+        const mappingIndex=mapping[boxNum]-1;
+        if (mappingIndex>=0) {
+      
+          currentAudio = new Audio(`../prob-sol/assets/${assets[mappingIndex]}`);
+          currentAudio.play();
+          audioFilename = assets[mappingIndex]
+            ? assets[mappingIndex]?.replace(".mp3", "")
+            : "";
+          showOverlay();
+          updatePlayButton();
+        }
+      }
+
+      function stopAudio() {
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+          updatePlayButton();
+        }
+      }
+
+      function updatePlayButton() {
+        const playBtn = document.getElementById("playBtn");
+        if (currentAudio && !currentAudio.paused) {
+          playBtn.textContent = "Pause";
+        } else {
+          playBtn.textContent = "Play";
+        }
+      }
+
+      function showOverlay() {
+        document.getElementById("overlay").classList.remove("hidden");
+        document.getElementById(
+          "audioFilename"
+        ).innerHTML = `Solution for Problem ${currentAudioIndex} : <br\> ${assetNames[currentAudioIndex-1]}`;
+      }
+
+      function hideOverlay() {
+        document.getElementById("overlay").classList.add("hidden");
+        stopAudio();
+      }
+
+      function createGrid(numSquares = 25) {
+        const grid = document.getElementById("grid");
+        for (let i = 0; i < numSquares; i++) {
+          grid.appendChild(createSquare(i + 1));
+        }
+      }
+
+      document.getElementById("playBtn").addEventListener("click", () => {
+        if (currentAudio && !currentAudio.paused) {
+          currentAudio.pause();
+        } else if (currentAudio) {
+          currentAudio.play();
+        } else {
+          playAudio(currentAudioIndex);
+        }
+        updatePlayButton();
+      });
+
+      document.getElementById("stopBtn").addEventListener("click", stopAudio);
+      document
+        .getElementById("closeOverlay")
+        .addEventListener("click", hideOverlay);
+
+      createGrid();
+    </script>
+  </body>
+</html>
